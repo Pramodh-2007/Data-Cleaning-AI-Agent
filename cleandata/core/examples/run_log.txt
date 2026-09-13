@@ -1,0 +1,30 @@
+DATA CLEANING REPORT
+============================================================
+Rows:    12 -> 11
+Columns: 6 -> 6
+Total actions taken: 21
+------------------------------------------------------------
+[ALL] inconsistent column naming -> standardize_column_names (0 rows) :: ['Customer ID ', ' Full Name', ' Country ', ' Signup Date', ' Purchase Amount', ' Notes'] -> ['customer_id', 'full_name', 'country', 'signup_date', 'purchase_amount', 'notes']
+[full_name] leading/trailing whitespace -> strip (12 rows) :: trimmed whitespace from text values
+[full_name] blank/whitespace-only cells -> convert_blank_to_null (1 rows) :: empty strings after stripping treated as missing values
+[country] leading/trailing whitespace -> strip (12 rows) :: trimmed whitespace from text values
+[country] blank/whitespace-only cells -> convert_blank_to_null (1 rows) :: empty strings after stripping treated as missing values
+[signup_date] leading/trailing whitespace -> strip (12 rows) :: trimmed whitespace from text values
+[purchase_amount] leading/trailing whitespace -> strip (12 rows) :: trimmed whitespace from text values
+[purchase_amount] blank/whitespace-only cells -> convert_blank_to_null (1 rows) :: empty strings after stripping treated as missing values
+[notes] leading/trailing whitespace -> strip (12 rows) :: trimmed whitespace from text values
+[notes] blank/whitespace-only cells -> convert_blank_to_null (5 rows) :: empty strings after stripping treated as missing values
+[signup_date] date stored as text -> cast_to_datetime (0 rows) :: parsed inconsistent date formats into datetime64
+[purchase_amount] numeric stored as text -> cast_to_numeric (0 rows) :: parsed currency/percent symbols; 0 values could not be parsed and became NaN
+[country] inconsistent capitalization -> normalize_case (0 rows) :: 8 raw variants -> 5 canonical values via title-casing
+[ALL] id-like column(s) detected -> exclude_from_dup_check (0 rows) :: excluded ['customer_id'] from duplicate comparison since a surrogate id will always be unique
+[ALL] 1 duplicate rows -> drop_duplicates (1 rows) :: kept first occurrence, subset=['full_name', 'country', 'signup_date', 'purchase_amount', 'notes']
+[full_name] 1 missing free-text values -> leave_as_null (1 rows) :: high-cardinality free text; imputing a 'most common' value would fabricate misleading content
+[country] 1 missing categorical values -> impute_mode (1 rows) :: filled with most frequent value ('Usa')
+[signup_date] 1 missing dates -> leave_as_null (1 rows) :: imputing dates would fabricate events; left as NaT
+[purchase_amount] 1 missing numeric values -> impute_median (1 rows) :: filled with column median (1e+03)
+[notes] 5 missing free-text values -> leave_as_null (5 rows) :: high-cardinality free text; imputing a 'most common' value would fabricate misleading content
+[purchase_amount] 1 statistical outliers (|z| > 3.0) -> clip_to_1st_99th_percentile (1 rows) :: clipped extreme values to [114, 7.84e+04]
+
+Cleaned data written to: examples/cleaned_output.csv
+Report written to:       examples/report.json

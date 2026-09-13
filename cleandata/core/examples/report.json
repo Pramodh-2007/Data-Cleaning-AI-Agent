@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "rows_before": 12,
+    "rows_after": 11,
+    "cols_before": 6,
+    "cols_after": 6,
+    "total_actions": 21
+  },
+  "actions": [
+    {
+      "column": "ALL",
+      "issue": "inconsistent column naming",
+      "action": "standardize_column_names",
+      "details": "['Customer ID ', ' Full Name', ' Country ', ' Signup Date', ' Purchase Amount', ' Notes'] -> ['customer_id', 'full_name', 'country', 'signup_date', 'purchase_amount', 'notes']",
+      "rows_affected": 0
+    },
+    {
+      "column": "full_name",
+      "issue": "leading/trailing whitespace",
+      "action": "strip",
+      "details": "trimmed whitespace from text values",
+      "rows_affected": 12
+    },
+    {
+      "column": "full_name",
+      "issue": "blank/whitespace-only cells",
+      "action": "convert_blank_to_null",
+      "details": "empty strings after stripping treated as missing values",
+      "rows_affected": 1
+    },
+    {
+      "column": "country",
+      "issue": "leading/trailing whitespace",
+      "action": "strip",
+      "details": "trimmed whitespace from text values",
+      "rows_affected": 12
+    },
+    {
+      "column": "country",
+      "issue": "blank/whitespace-only cells",
+      "action": "convert_blank_to_null",
+      "details": "empty strings after stripping treated as missing values",
+      "rows_affected": 1
+    },
+    {
+      "column": "signup_date",
+      "issue": "leading/trailing whitespace",
+      "action": "strip",
+      "details": "trimmed whitespace from text values",
+      "rows_affected": 12
+    },
+    {
+      "column": "purchase_amount",
+      "issue": "leading/trailing whitespace",
+      "action": "strip",
+      "details": "trimmed whitespace from text values",
+      "rows_affected": 12
+    },
+    {
+      "column": "purchase_amount",
+      "issue": "blank/whitespace-only cells",
+      "action": "convert_blank_to_null",
+      "details": "empty strings after stripping treated as missing values",
+      "rows_affected": 1
+    },
+    {
+      "column": "notes",
+      "issue": "leading/trailing whitespace",
+      "action": "strip",
+      "details": "trimmed whitespace from text values",
+      "rows_affected": 12
+    },
+    {
+      "column": "notes",
+      "issue": "blank/whitespace-only cells",
+      "action": "convert_blank_to_null",
+      "details": "empty strings after stripping treated as missing values",
+      "rows_affected": 5
+    },
+    {
+      "column": "signup_date",
+      "issue": "date stored as text",
+      "action": "cast_to_datetime",
+      "details": "parsed inconsistent date formats into datetime64",
+      "rows_affected": 0
+    },
+    {
+      "column": "purchase_amount",
+      "issue": "numeric stored as text",
+      "action": "cast_to_numeric",
+      "details": "parsed currency/percent symbols; 0 values could not be parsed and became NaN",
+      "rows_affected": 0
+    },
+    {
+      "column": "country",
+      "issue": "inconsistent capitalization",
+      "action": "normalize_case",
+      "details": "8 raw variants -> 5 canonical values via title-casing",
+      "rows_affected": 0
+    },
+    {
+      "column": "ALL",
+      "issue": "id-like column(s) detected",
+      "action": "exclude_from_dup_check",
+      "details": "excluded ['customer_id'] from duplicate comparison since a surrogate id will always be unique",
+      "rows_affected": 0
+    },
+    {
+      "column": "ALL",
+      "issue": "1 duplicate rows",
+      "action": "drop_duplicates",
+      "details": "kept first occurrence, subset=['full_name', 'country', 'signup_date', 'purchase_amount', 'notes']",
+      "rows_affected": 1
+    },
+    {
+      "column": "full_name",
+      "issue": "1 missing free-text values",
+      "action": "leave_as_null",
+      "details": "high-cardinality free text; imputing a 'most common' value would fabricate misleading content",
+      "rows_affected": 1
+    },
+    {
+      "column": "country",
+      "issue": "1 missing categorical values",
+      "action": "impute_mode",
+      "details": "filled with most frequent value ('Usa')",
+      "rows_affected": 1
+    },
+    {
+      "column": "signup_date",
+      "issue": "1 missing dates",
+      "action": "leave_as_null",
+      "details": "imputing dates would fabricate events; left as NaT",
+      "rows_affected": 1
+    },
+    {
+      "column": "purchase_amount",
+      "issue": "1 missing numeric values",
+      "action": "impute_median",
+      "details": "filled with column median (1e+03)",
+      "rows_affected": 1
+    },
+    {
+      "column": "notes",
+      "issue": "5 missing free-text values",
+      "action": "leave_as_null",
+      "details": "high-cardinality free text; imputing a 'most common' value would fabricate misleading content",
+      "rows_affected": 5
+    },
+    {
+      "column": "purchase_amount",
+      "issue": "1 statistical outliers (|z| > 3.0)",
+      "action": "clip_to_1st_99th_percentile",
+      "details": "clipped extreme values to [114, 7.84e+04]",
+      "rows_affected": 1
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-cleaning-agent"
+version = "1.0.0"
+description = "A rule-driven AI agent that cleans messy tabular data and reports every decision it makes."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Your Name" }]
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.scripts]
+clean-data = "data_cleaning_agent.agent:main"
+
+[tool.setuptools]
+packages = ["data_cleaning_agent"]

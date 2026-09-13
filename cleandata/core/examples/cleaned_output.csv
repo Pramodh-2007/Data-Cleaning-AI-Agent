@@ -1,0 +1,12 @@
+customer_id,full_name,country,signup_date,purchase_amount,notes
+1,Alice Smith,Usa,2023-01-05,1200.0,Regular customer
+2,bob jones,Usa,2023-01-06,950.0,
+4,Carlos Diaz,Mexico,2023-01-07,1100.5,VIP
+5,Dana Lee,Canada,2023-01-08,1005.0,New signup
+6,Evan Wright,Canada,2023-01-09,78420.0,Bulk order - unusually large
+7,Farah Khan,Usa,2023-01-10,875.0,
+8,George Owusu,Nigeria,2023-01-11,990.0,
+9,Hana Kim,Usa,,1050.0,
+10,Ivan Petrov,Russia,2023-01-13,1020.0,
+11,,Usa,2023-01-14,940.0,missing name
+12,Julia Roberts,Usa,2023-01-15,30.0,possible data entry error

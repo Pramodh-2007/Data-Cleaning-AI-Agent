@@ -1,0 +1,2 @@
+[console_scripts]
+clean-data = data_cleaning_agent.agent:main
